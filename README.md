@@ -1,16 +1,16 @@
-# flutter_sample
+# Flutter-Sample-Ramenian-App
 
-A new Flutter project.
+Flutter sample app. developed for seminar in handstudio.
 
-## Getting Started
+## Features
+- Remote server data fetching via dio-http
+- Centralized state management using scoped_model
+- Other tip & tricks
 
-This project is a starting point for a Flutter application.
+## Getting started
+1. Prepare the VS Code app to your computer.
+2. Install Flutter extension on VS Code marketplace.
+3. Just clone repository and open it in VS Code, then you're ready to rock!
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+## Run app on physical iOS device
+TBD

@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_sample/pages/splash_page.dart';
 import 'package:flutter_sample/states/app_state.dart';
 
 void main() {
   runApp(
-    MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/': (BuildContext context) => SplashPage()
-      },
+    ScopedModel<AppState>(
+      model: AppState(),
+      child: MaterialApp(
+        initialRoute: '/',
+        routes: {
+          '/': (BuildContext context) => SplashPage()
+        }
+      )
     )
   );
 }
