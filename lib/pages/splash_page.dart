@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sample/styles.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
   
+  @override
+  State createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
