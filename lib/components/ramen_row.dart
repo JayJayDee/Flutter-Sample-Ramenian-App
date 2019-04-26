@@ -52,7 +52,19 @@ class RamenRow extends StatelessWidget {
                         )
                       ),
                       Padding(padding: EdgeInsets.only(left: 5)),
-                      Text(_soupExpr(ramen)) // 국물여부
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Container(
+                          color: AppStyles.primaryFontColor,
+                          padding: EdgeInsets.all(5),
+                          child: Text(_soupExpr(ramen),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white
+                            )
+                          )
+                        )
+                      )
                     ]
                   ),
                   Padding(padding: EdgeInsets.only(top: 5)),
@@ -74,7 +86,7 @@ class RamenRow extends StatelessWidget {
 }
 
 String _soupExpr(Ramen ramen) =>
-  ramen.hasSoup ? '국물있음' : '국물없음';
+  ramen.hasSoup ? '국물 O' : '국물 X';
 
 List<Widget> _ramenTagsWidgets(List<String> tags) {
   List<Widget> widgets = [];
