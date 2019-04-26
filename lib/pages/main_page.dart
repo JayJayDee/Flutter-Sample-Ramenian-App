@@ -25,6 +25,14 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
+  Future<void> _onClearClicked(BuildContext context) async {
+    bool isOk = await showClearRamensDialog(context);
+    AppState state = ScopedModel.of<AppState>(context);
+    if (isOk == true) {
+      await state.clearRamens();
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -38,7 +46,8 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(context,
-        addCallback: _onAddClicked
+        addCallback: _onAddClicked,
+        clearCallback: _onClearClicked,
       ),
       backgroundColor: AppStyles.backgroundColor,
       body: SafeArea(
@@ -61,7 +70,8 @@ class _MainPageState extends State<MainPage> {
 typedef EventCallback (BuildContext context);
 
 Widget _appBar(BuildContext context, {
-  @required EventCallback addCallback
+  @required EventCallback addCallback,
+  @required EventCallback clearCallback
 }) {
   AppState state = ScopedModel.of<AppState>(context, rebuildOnChange: true);
   return AppBar(
@@ -72,6 +82,11 @@ Widget _appBar(BuildContext context, {
         icon: Icon(Icons.add),
         onPressed: state.loading == true ?
           null : () => addCallback(context)
+      ),
+      IconButton(
+        icon: Icon(Icons.clear_all),
+        onPressed: state.loading == true ?
+          null : () => clearCallback(context)
       )
     ]
   );

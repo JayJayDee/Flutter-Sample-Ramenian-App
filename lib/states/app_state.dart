@@ -14,6 +14,18 @@ class AppState extends Model {
     _loading = false;
   }
 
+  Future<void> clearRamens() async {
+    _loading = true;
+    notifyListeners();
+    await _waitSec(1);
+
+    await factoryInst().ramensRequester.requestClear();
+    _ramens = [];
+
+    _loading = false;
+    notifyListeners();
+  }
+
   Future<void> loadRamens() async {
     _loading = true;
     notifyListeners();

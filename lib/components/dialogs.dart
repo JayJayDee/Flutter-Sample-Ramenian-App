@@ -20,3 +20,24 @@ Future<bool> showNewRamenDialog(BuildContext context) async =>
       );
     }
   );
+
+Future<bool> showClearRamensDialog(BuildContext context) async =>
+  showDialog<bool>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Clear all ramen'),
+        content: Text('Are you sure to clear all ramens?'),
+        actions: [
+          FlatButton(
+            child: Text('Okay'),
+            onPressed: () => Navigator.of(context).pop(true)
+          ),
+          FlatButton(
+            child: Text('Cancel'),
+            onPressed: () => Navigator.of(context).pop(false)
+          )
+        ]
+      );
+    }
+  );
