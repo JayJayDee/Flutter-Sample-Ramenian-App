@@ -17,10 +17,21 @@ class AppState extends Model {
   Future<void> loadRamens() async {
     _loading = true;
     notifyListeners();
-    await _waitSec(2);
+    await _waitSec(1);
 
     _ramens = await factoryInst().ramensRequester.requestRamens();
-    print(_ramens);
+
+    _loading = false;
+    notifyListeners();
+  }
+
+  Future<void> addNewRamen() async {
+    _loading = true;
+    notifyListeners();
+    await _waitSec(1);
+
+    await factoryInst().ramensRequester.requestNewRamen();
+    _ramens = await factoryInst().ramensRequester.requestRamens();
 
     _loading = false;
     notifyListeners();

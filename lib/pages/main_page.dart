@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_sample/states/app_state.dart';
 import 'package:flutter_sample/styles.dart';
+import 'package:flutter_sample/components/dialogs.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -9,6 +10,14 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
+  Future<void> _onAddClicked(BuildContext context) async {
+    bool isOk = await showNewRamenDialog(context);
+    AppState state = ScopedModel.of<AppState>(context);
+    if (isOk == true) {
+      await state.addNewRamen();
+    }
+  }
 
   @override
   void initState() {
@@ -22,8 +31,8 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Ramenian App'),
+      appBar: _appBar(context,
+        addCallback: _onAddClicked
       ),
       body: SafeArea(
         child: Stack(
@@ -40,10 +49,35 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
+typedef EventCallback (BuildContext context);
+
+Widget _appBar(BuildContext context, {
+  @required EventCallback addCallback
+}) {
+  AppState state = ScopedModel.of<AppState>(context, rebuildOnChange: true);
+  return AppBar(
+    title: Text('Ramenian App'),
+    backgroundColor: AppStyles.secondaryFontColor,
+    actions: [
+      IconButton(
+        icon: Icon(Icons.add),
+        onPressed: state.loading == true ?
+          null : () => addCallback(context)
+      )
+    ]
+  );
+}
+
 Widget _progressBar(BuildContext context) {
   AppState state = ScopedModel.of<AppState>(context, rebuildOnChange: true);
   if (state.loading == true) {
-    return CircularProgressIndicator();
+    return Container(
+      width: 100,
+      height: 100,
+      child: CircularProgressIndicator(
+        strokeWidth: 8,
+      )
+    );
   }
   return Center();
 }
@@ -51,7 +85,7 @@ Widget _progressBar(BuildContext context) {
 Widget _mainListView(BuildContext context) {
   AppState state = ScopedModel.of<AppState>(context, rebuildOnChange: true);
 
-  if (state.ramens == null) return Center();
+  if (state.loading == true) return Center();
   if (state.ramens.length == 0) return _emptyView(context);
 
   return ListView(
@@ -60,23 +94,26 @@ Widget _mainListView(BuildContext context) {
 }
 
 Widget _emptyView(BuildContext context) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Container(
-        child: Icon(
-          Icons.delete_forever,
-          size: 80,
-          color: AppStyles.secondaryFontColor,
-        )
-      ),
-      Text('There are no ramens..',
-        style: TextStyle(
-          fontSize: 18,
-          color: AppStyles.secondaryFontColor
+  return Container(
+    alignment: Alignment.center,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          child: Icon(
+            Icons.delete_forever,
+            size: 80,
+            color: AppStyles.secondaryFontColor,
+          )
         ),
-      )
-    ]
+        Text('There are no ramens',
+          style: TextStyle(
+            fontSize: 18,
+            color: AppStyles.secondaryFontColor
+          ),
+        )
+      ]
+    )
   );
 }
