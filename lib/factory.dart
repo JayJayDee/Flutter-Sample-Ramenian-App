@@ -8,7 +8,7 @@ class _AppFactory {
 
   _AppFactory() {
     _ramensRequester = HttpRamensRequester(
-      baseUrl: 'http://dev-auth.chatpot.chat'
+      baseUrl: 'http://ramenian.chatpot.chat'
     );
   }
 }
