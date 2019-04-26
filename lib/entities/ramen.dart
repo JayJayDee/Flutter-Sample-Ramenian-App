@@ -30,4 +30,7 @@ class Ramen {
     ramen._tags = tags;
     return ramen;
   }
+
+  @override
+  toString() => "$_company $_name";
 }

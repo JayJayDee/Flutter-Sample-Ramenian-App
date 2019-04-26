@@ -3,7 +3,7 @@ import 'package:flutter_sample/entities/ramen.dart';
 
 class RamenRow extends StatelessWidget {
 
-  Ramen ramen;
+  final Ramen ramen;
 
   RamenRow({
     this.ramen

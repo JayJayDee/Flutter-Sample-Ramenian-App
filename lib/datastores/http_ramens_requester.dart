@@ -26,4 +26,14 @@ class HttpRamensRequester extends RamensRequester {
 
     return ramens;
   }
+
+  Future<void> requestNewRamen() async {
+    String url = "$_baseUrl/ramen";
+    await Dio().post(url);
+  }
+
+  Future<void> requestClear() async {
+    String url = "$_baseUrl/clear";
+    await Dio().post(url);
+  }
 }

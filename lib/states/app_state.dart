@@ -10,17 +10,22 @@ class AppState extends Model {
   bool get loading => _loading;
 
   AppState() {
-    _ramens = List();
+    _ramens = [];
     _loading = false;
   }
 
   Future<void> loadRamens() async {
     _loading = true;
     notifyListeners();
+    await _waitSec(2);
 
-    await factoryInst().ramensRequester.requestRamens();
+    _ramens = await factoryInst().ramensRequester.requestRamens();
+    print(_ramens);
 
     _loading = false;
     notifyListeners();
   }
 }
+
+Future<void> _waitSec(int sec) =>
+  Future.delayed(Duration(seconds: sec));
