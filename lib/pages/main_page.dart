@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_sample/states/app_state.dart';
 import 'package:flutter_sample/styles.dart';
+import 'package:flutter_sample/entities/ramen.dart';
 import 'package:flutter_sample/components/dialogs.dart';
+import 'package:flutter_sample/components/ramen_row.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -10,6 +12,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
+  Future<void> _onRamenSelected(BuildContext context, Ramen ramen) async {
+
+  }
 
   Future<void> _onAddClicked(BuildContext context) async {
     bool isOk = await showNewRamenDialog(context);
@@ -34,11 +40,14 @@ class _MainPageState extends State<MainPage> {
       appBar: _appBar(context,
         addCallback: _onAddClicked
       ),
+      backgroundColor: AppStyles.backgroundColor,
       body: SafeArea(
         child: Stack(
           alignment: Alignment.center,
           children: [
-            _mainListView(context),
+            _mainListView(context,
+              onRamenSelect: (ramen) => _onRamenSelected(context, ramen)
+            ),
             Positioned(
               child: _progressBar(context)
             )
@@ -82,14 +91,21 @@ Widget _progressBar(BuildContext context) {
   return Center();
 }
 
-Widget _mainListView(BuildContext context) {
-  AppState state = ScopedModel.of<AppState>(context, rebuildOnChange: true);
+typedef RamenSelectListener (Ramen ramen);
 
-  if (state.loading == true) return Center();
+Widget _mainListView(BuildContext context, {
+  @required RamenSelectListener onRamenSelect
+}) {
+  AppState state = ScopedModel.of<AppState>(context, rebuildOnChange: true);
   if (state.ramens.length == 0) return _emptyView(context);
 
-  return ListView(
-    children: []
+  return ListView.builder(
+    itemCount: state.ramens.length,
+    itemBuilder: (BuildContext context, int idx) =>
+      RamenRow(
+        ramen: state.ramens[idx],
+        onSelect: (ramen) => onRamenSelect(ramen)
+      )
   );
 }
 
