@@ -18,49 +18,55 @@ class RamenRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 10, top: 10, right: 10),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(40),
-            child: CachedNetworkImage(
-              imageUrl: ramen.image,
-              width: 80,
-              height: 80
+    return FlatButton(
+      padding: EdgeInsets.all(0),
+      onPressed: () {
+        if (onSelect != null) onSelect(ramen);
+      },
+      child: Container(
+        margin: EdgeInsets.only(left: 10, top: 10, right: 10),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(40),
+              child: CachedNetworkImage(
+                imageUrl: ramen.image,
+                width: 80,
+                height: 80
+              )
+            ),
+            Padding(padding: EdgeInsets.only(left: 10)),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(ramen.company),
+                      Padding(padding: EdgeInsets.only(left: 5)),
+                      Text(ramen.name,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: AppStyles.primaryFontColor,
+                          fontWeight: FontWeight.bold
+                        )
+                      ),
+                      Padding(padding: EdgeInsets.only(left: 5)),
+                      Text(_soupExpr(ramen)) // 국물여부
+                    ]
+                  ),
+                  Row(
+                    children: _ramenTagsWidgets(ramen.tags),
+                  )
+                ]
+              )
+            ),
+            Icon(
+              Icons.chevron_right,
+              color: Colors.black,
             )
-          ),
-          Padding(padding: EdgeInsets.only(left: 10)),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(ramen.company),
-                    Padding(padding: EdgeInsets.only(left: 5)),
-                    Text(ramen.name,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: AppStyles.primaryFontColor,
-                        fontWeight: FontWeight.bold
-                      )
-                    ),
-                    Padding(padding: EdgeInsets.only(left: 5)),
-                    Text(_soupExpr(ramen)) // 국물여부
-                  ]
-                ),
-                Row(
-                  children: _ramenTagsWidgets(ramen.tags),
-                )
-              ]
-            )
-          ),
-          Icon(
-            Icons.chevron_right,
-            color: Colors.black,
-          )
-        ]
+          ]
+        )
       )
     );
   }
