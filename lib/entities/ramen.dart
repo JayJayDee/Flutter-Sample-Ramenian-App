@@ -3,6 +3,7 @@ enum RamenType {
 }
 
 class Ramen {
+  int _id;
   RamenType _type;
   String _name;
   String _company;
@@ -12,6 +13,7 @@ class Ramen {
 
   Ramen();
 
+  int get id => _id;
   RamenType get type => _type;
   String get name => _name;
   String get company => _company;
@@ -21,6 +23,7 @@ class Ramen {
 
   factory Ramen.fromJson(Map<String, dynamic> json) {
     Ramen ramen = Ramen();
+    ramen._id = json['id'];
     ramen._company = json['company'];
     ramen._name = json['name'];
     ramen._image = json['image'];
