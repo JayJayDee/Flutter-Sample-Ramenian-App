@@ -1,7 +1,7 @@
 # Flutter-Sample-Ramenian-App
+![app screenshot](https://raw.githubusercontent.com/JayJayDee/Flutter-Sample-Ramenian-App/master/images/screenshot_01.png)
 
 Flutter sample app. developed for seminar in [handstudio](http://handstudio.net).
-![app screenshot](https://raw.githubusercontent.com/JayJayDee/Flutter-Sample-Ramenian-App/master/images/screenshot_01.png)
 
 ## Features
 - Remote server data fetching via [dio-http](https://pub.dartlang.org/packages/dio)
@@ -14,7 +14,7 @@ Flutter sample app. developed for seminar in [handstudio](http://handstudio.net)
 3. Just clone repository and open it in VS Code, then you're ready to rock!
 
 ## REST api specs
-this app uses demonstrate-purpose http API. feel free to use it.
+this app uses demonstration-purpose rest API. feel free to use it.
 ### Base URL
 ```bash
 http://ramenian.chatpot.chat
