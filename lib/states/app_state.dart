@@ -48,6 +48,18 @@ class AppState extends Model {
     _loading = false;
     notifyListeners();
   }
+
+  Future<void> deleteRamen(int ramenId) async {
+    _loading = true;
+    notifyListeners();
+    await _waitSec(1);
+
+    await factoryInst().ramensRequester.deleteRamen(ramenId);
+    _ramens = await factoryInst().ramensRequester.requestRamens();
+
+    _loading = false;
+    notifyListeners();
+  }
 }
 
 Future<void> _waitSec(int sec) =>

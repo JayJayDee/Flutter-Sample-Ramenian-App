@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_sample/entities/ramen.dart';
 import 'package:flutter_sample/factory.dart';
 import 'package:flutter_sample/styles.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_sample/states/app_state.dart';
 
 class RamenDetailPage extends StatefulWidget {
 
@@ -31,7 +33,9 @@ class _RamenDetailPageState extends State<RamenDetailPage> {
   }
 
   Future<void> _onDeleteClicked(BuildContext context) async {
-    
+    AppState state = ScopedModel.of<AppState>(context);
+    state.deleteRamen(_ramenId);
+    Navigator.of(context).pop();
   }
 
   @override
@@ -66,7 +70,8 @@ class _RamenDetailPageState extends State<RamenDetailPage> {
           children: [
             ListView(
               children: _listWidgets(_ramen,
-                callback: () => _onDeleteClicked(context)
+                callback: () => _onDeleteClicked(context),
+                loading: _loading
               )
             ),
             Positioned(
@@ -92,12 +97,13 @@ Widget _progressBar(bool loading) =>
   ) : Center();
 
 List<Widget> _listWidgets(Ramen ramen, {
-  @required VoidCallback callback
+  @required VoidCallback callback,
+  @required bool loading
 }) {
   if (ramen == null) return [];
   return [
     _ramenImage(ramen.image),
-    _deleteButton(callback)
+    _deleteButton(callback, loading)
   ];
 }
 
@@ -113,7 +119,7 @@ Widget _ramenImage(String imageUrl) =>
     )
   );
 
-Widget _deleteButton(VoidCallback callback) =>
+Widget _deleteButton(VoidCallback callback, bool loading) =>
   Container(
     margin: EdgeInsets.all(10),
     child: RaisedButton(
@@ -124,6 +130,6 @@ Widget _deleteButton(VoidCallback callback) =>
           color: Colors.white
         )
       ),
-      onPressed: callback,
+      onPressed: loading == true ? null : callback,
     )
   );

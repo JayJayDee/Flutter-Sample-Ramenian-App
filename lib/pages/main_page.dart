@@ -15,14 +15,13 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   Future<void> _onRamenSelected(BuildContext context, Ramen ramen) async {
-    bool dataChanged = await Navigator.of(context).push<bool>(
+    await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => RamenDetailPage(
           ramenId: ramen.id
         )
       )
     );
-    print(dataChanged);
   }
 
   Future<void> _onAddClicked(BuildContext context) async {
