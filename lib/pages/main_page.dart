@@ -5,6 +5,7 @@ import 'package:flutter_sample/styles.dart';
 import 'package:flutter_sample/entities/ramen.dart';
 import 'package:flutter_sample/components/dialogs.dart';
 import 'package:flutter_sample/components/ramen_row.dart';
+import 'package:flutter_sample/pages/ramen_detail_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -14,7 +15,14 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   Future<void> _onRamenSelected(BuildContext context, Ramen ramen) async {
-
+    bool dataChanged = await Navigator.of(context).push<bool>(
+      MaterialPageRoute(
+        builder: (context) => RamenDetailPage(
+          ramenId: ramen.id
+        )
+      )
+    );
+    print(dataChanged);
   }
 
   Future<void> _onAddClicked(BuildContext context) async {
