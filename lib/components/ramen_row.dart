@@ -55,6 +55,7 @@ class RamenRow extends StatelessWidget {
                       Text(_soupExpr(ramen)) // 국물여부
                     ]
                   ),
+                  Padding(padding: EdgeInsets.only(top: 5)),
                   Row(
                     children: _ramenTagsWidgets(ramen.tags),
                   )
@@ -75,5 +76,10 @@ class RamenRow extends StatelessWidget {
 String _soupExpr(Ramen ramen) =>
   ramen.hasSoup ? '국물있음' : '국물없음';
 
-List<RamenTag> _ramenTagsWidgets(List<String> tags) =>
-  tags.map((t) => RamenTag(tag: t)).toList();
+List<Widget> _ramenTagsWidgets(List<String> tags) {
+  List<Widget> widgets = [];
+  tags.forEach((t) {
+    widgets.addAll([RamenTag(tag: t), Padding(padding: EdgeInsets.only(left: 5),)]);
+  });
+  return widgets;
+}
