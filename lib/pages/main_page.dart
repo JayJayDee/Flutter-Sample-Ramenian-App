@@ -14,6 +14,11 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
+  Future<void> _onRefreshSelected(BuildContext context) async {
+    AppState state = ScopedModel.of<AppState>(context);
+    state.loadRamens();
+  }
+
   Future<void> _onRamenSelected(BuildContext context, Ramen ramen) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
@@ -55,6 +60,7 @@ class _MainPageState extends State<MainPage> {
       appBar: _appBar(context,
         addCallback: _onAddClicked,
         clearCallback: _onClearClicked,
+        refreshCallback: _onRefreshSelected,
       ),
       backgroundColor: AppStyles.backgroundColor,
       body: SafeArea(
@@ -78,7 +84,8 @@ typedef EventCallback (BuildContext context);
 
 Widget _appBar(BuildContext context, {
   @required EventCallback addCallback,
-  @required EventCallback clearCallback
+  @required EventCallback clearCallback,
+  @required EventCallback refreshCallback
 }) {
   AppState state = ScopedModel.of<AppState>(context, rebuildOnChange: true);
   return AppBar(
@@ -94,6 +101,11 @@ Widget _appBar(BuildContext context, {
         icon: Icon(Icons.clear_all),
         onPressed: state.loading == true ?
           null : () => clearCallback(context)
+      ),
+      IconButton(
+        icon: Icon(Icons.refresh),
+        onPressed: state.loading == true ?
+          null : () => refreshCallback(context)
       )
     ]
   );
