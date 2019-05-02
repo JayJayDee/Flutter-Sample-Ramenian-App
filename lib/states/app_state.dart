@@ -60,6 +60,32 @@ class AppState extends Model {
     _loading = false;
     notifyListeners();
   }
+
+  void _applyFavorites(List<int> favorites, List<Ramen> ramens) {
+    ramens.forEach((r) {
+      if (favorites.where((favId) => favId == r.id).toList().length > 0) {
+        r.setFavorite();
+      } else {
+        r.unsetFavorite();
+      }
+    });
+  }
+
+  Ramen getRamen(int ramenId) {
+    List<Ramen> ramens = _ramens.where((r) => r.id == ramenId).toList();
+    if (ramens.length > 0) return ramens[0];
+    return null;
+  }
+
+  Future<void> markFavorite(int ramenId) async {
+    await factoryInst().favoriteAccessor.storeFavoriteId(ramenId);
+    this.getRamen(ramenId).setFavorite();
+  }
+
+  Future<void> unmarkFavorite(int ramenId) async {
+    await factoryInst().favoriteAccessor.removeFavoriteId(ramenId);
+    this.getRamen(ramenId).unsetFavorite();
+  }
 }
 
 Future<void> _waitSec(int sec) =>

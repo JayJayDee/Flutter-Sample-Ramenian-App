@@ -38,6 +38,14 @@ class Ramen {
     return ramen;
   }
 
+  void setFavorite() {
+    _favorite = true;
+  }
+  
+  void unsetFavorite() {
+    _favorite = false;
+  }
+
   @override
   toString() => "$_company $_name";
 }

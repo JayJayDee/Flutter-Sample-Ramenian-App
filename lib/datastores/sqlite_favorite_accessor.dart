@@ -21,4 +21,8 @@ class SqliteFavoriteAccessor extends FavoriteAccessor {
   Future<void> storeFavoriteId(int ramenId) async {
 
   }
+
+  Future<void> removeFavoriteId(int ramenId) async {
+    
+  }
 }

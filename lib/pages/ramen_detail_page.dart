@@ -48,8 +48,10 @@ class _RamenDetailPageState extends State<RamenDetailPage> {
     setState(() {
       _loading = true;
     });
-    await Future.delayed(Duration(seconds: 1));
-    Ramen fetchedRamen = await factoryInst().ramensRequester.requestRamen(_ramenId);
+    await Future.delayed(Duration(milliseconds: 500));
+
+    AppState state = ScopedModel.of<AppState>(context);
+    Ramen fetchedRamen = state.getRamen(_ramenId);
 
     setState(() {
       _loading = false;
