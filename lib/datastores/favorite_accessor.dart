@@ -1,4 +1,4 @@
 abstract class FavoriteAccessor {
   Future<List<int>> fetchFavoriteIds();
-  Future<void> storeFavoriteId();
+  Future<void> storeFavoriteId(int ramenId);
 }

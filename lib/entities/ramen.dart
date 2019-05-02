@@ -10,8 +10,11 @@ class Ramen {
   String _image;
   bool _soup;
   List<String> _tags;
+  bool _favorite;
 
-  Ramen();
+  Ramen() {
+    _favorite = false;
+  }
 
   int get id => _id;
   RamenType get type => _type;
