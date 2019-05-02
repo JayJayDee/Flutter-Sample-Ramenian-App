@@ -23,6 +23,7 @@ class Ramen {
   String get image => _image;
   List<String> get tags => _tags;
   bool get hasSoup => _soup;
+  bool get favorite => _favorite;
 
   factory Ramen.fromJson(Map<String, dynamic> json) {
     Ramen ramen = Ramen();
